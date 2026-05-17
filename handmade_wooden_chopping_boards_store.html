@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ohio Chopping Boards | Handmade Cutting Boards</title>
+  <style>
+    :root {
+      --dark: #1f1712;
+      --wood: #9a6438;
+      --wood-dark: #754722;
+      --cream: #fff8ef;
+      --tan: #efe0ce;
+      --green: #314d3b;
+      --muted: #74675c;
+      --line: #eadbc9;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+    }
+
+    header {
+      background: linear-gradient(rgba(31, 23, 18, .68), rgba(31, 23, 18, .68)),
+        url('https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      padding: 24px 7% 110px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 900;
+      letter-spacing: .5px;
+    }
+
+    nav a, nav button {
+      color: white;
+      text-decoration: none;
+      margin-left: 18px;
+      font-weight: 700;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .cart-pill {
+      background: var(--wood);
+      padding: 10px 16px;
+      border-radius: 999px;
+    }
+
+    .hero {
+      max-width: 720px;
+      margin-top: 100px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 5rem);
+      line-height: 1.02;
+      margin: 0 0 18px;
+    }
+
+    .hero p {
+      font-size: 1.22rem;
+      line-height: 1.6;
+      margin: 0 0 30px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--wood);
+      color: white;
+      padding: 14px 24px;
+      border-radius: 999px;
+      border: none;
+      text-decoration: none;
+      font-weight: 800;
+      cursor: pointer;
+      transition: .2s ease;
+      text-align: center;
+    }
+
+    .btn:hover { background: var(--wood-dark); transform: translateY(-1px); }
+    .btn.secondary { background: var(--green); }
+    .btn.full { width: 100%; }
+
+    section { padding: 72px 7%; }
+
+    .section-title {
+      max-width: 760px;
+      margin: 0 auto 38px;
+      text-align: center;
+    }
+
+    .section-title h2 {
+      font-size: 2.35rem;
+      margin: 0 0 12px;
+    }
+
+    .section-title p {
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 26px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 12px 32px rgba(31, 23, 18, .09);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 23px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 1.28rem;
+    }
+
+    .card p {
+      color: var(--muted);
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    .price {
+      color: var(--green);
+      font-size: 1.35rem;
+      font-weight: 900;
+      margin: 10px 0 18px;
+    }
+
+    .about {
+      background: var(--tan);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+      align-items: center;
+    }
+
+    .about img {
+      width: 100%;
+      border-radius: 24px;
+      box-shadow: 0 16px 38px rgba(31, 23, 18, .18);
+    }
+
+    .about h2 { font-size: 2.25rem; margin-top: 0; }
+    .about p { color: var(--muted); line-height: 1.7; }
+
+    .checkout-section {
+      background: white;
+    }
+
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 28px;
+      max-width: 1120px;
+      margin: auto;
+    }
+
+    .panel {
+      background: var(--cream);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 24px;
+    }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 14px;
+      border-bottom: 1px solid var(--line);
+      padding: 14px 0;
+    }
+
+    .cart-item:first-child { padding-top: 0; }
+    .cart-item strong { display: block; margin-bottom: 5px; }
+    .cart-item small { color: var(--muted); }
+
+    .qty-controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: flex-end;
+      margin-top: 9px;
+    }
+
+    .qty-controls button, .remove {
+      border: 1px solid var(--line);
+      background: white;
+      border-radius: 10px;
+      padding: 7px 10px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .remove { color: #9b2f21; }
+
+    .totals {
+      margin-top: 18px;
+      line-height: 2;
+      font-size: 1.04rem;
+    }
+
+    .totals div {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .totals .grand {
+      border-top: 2px solid var(--line);
+      margin-top: 8px;
+      padding-top: 8px;
+      font-weight: 900;
+      font-size: 1.25rem;
+    }
+
+    label {
+      display: block;
+      font-weight: 800;
+      margin: 14px 0 6px;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      font-size: 1rem;
+      background: white;
+    }
+
+    textarea { min-height: 92px; resize: vertical; }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .notice {
+      background: #fff3d6;
+      border: 1px solid #edd38d;
+      border-radius: 14px;
+      padding: 13px;
+      color: #6a4b00;
+      margin: 16px 0;
+      line-height: 1.5;
+    }
+
+    .success {
+      display: none;
+      background: #e9f7ed;
+      border: 1px solid #9fd2aa;
+      color: #225831;
+      padding: 16px;
+      border-radius: 14px;
+      margin-top: 16px;
+      line-height: 1.5;
+      font-weight: 700;
+    }
+
+    footer {
+      background: #130e0b;
+      color: #d7c9bc;
+      text-align: center;
+      padding: 24px 7%;
+    }
+
+    @media (max-width: 850px) {
+      .checkout-grid { grid-template-columns: 1fr; }
+      nav { flex-direction: column; align-items: flex-start; }
+      nav a, nav button { margin: 0 12px 0 0; }
+      .hero { margin-top: 70px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">Ohio Chopping Boards</div>
+      <div>
+        <a href="#shop">Shop</a>
+        <a href="#about">About</a>
+        <a href="#checkout">Checkout</a>
+        <button class="cart-pill" onclick="scrollToCheckout()">Cart: <span id="cartCount">0</span></button>
+      </div>
+    </nav>
+
+    <div class="hero">
+      <h1>Handmade Wooden Chopping Boards from Ohio</h1>
+      <p>Premium hardwood cutting boards, serving boards, and custom engraved gifts made for kitchens, cookouts, housewarmings, weddings, and everyday use.</p>
+      <a class="btn" href="#shop">Shop Boards</a>
+    </div>
+  </header>
+
+  <section id="shop">
+    <div class="section-title">
+      <h2>Shop Handmade Boards</h2>
+      <p>Choose from walnut, maple, cherry, and custom engraved boards. Add products to your cart, then complete the checkout form below.</p>
+    </div>
+
+    <div class="products" id="products"></div>
+  </section>
+
+  <section class="about" id="about">
+    <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1000&q=80" alt="Woodworking shop" />
+    <div>
+      <h2>Ohio Made. Built to Last.</h2>
+      <p>Every board is crafted in small batches using quality hardwoods, then sanded smooth and finished with food-safe oil and wax.</p>
+      <p>Need a custom size, juice groove, handles, logo, or engraved family name? Add notes during checkout and we’ll follow up before production.</p>
+      <a class="btn secondary" href="#checkout">Start Checkout</a>
+    </div>
+  </section>
+
+  <section class="checkout-section" id="checkout">
+    <div class="section-title">
+      <h2>Cart & Checkout</h2>
+      <p>This demo checkout collects the order details. To accept real payments online, connect the checkout button to Stripe, Shopify, Square, or PayPal.</p>
+    </div>
+
+    <div class="checkout-grid">
+      <div class="panel">
+        <h3>Your Cart</h3>
+        <div id="cartItems"></div>
+        <div class="totals">
+          <div><span>Subtotal</span><span id="subtotal">$0.00</span></div>
+          <div><span>Ohio sales tax estimate</span><span id="tax">$0.00</span></div>
+          <div><span>Shipping</span><span id="shipping">$0.00</span></div>
+          <div class="grand"><span>Total</span><span id="total">$0.00</span></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>Checkout Details</h3>
+        <form id="checkoutForm">
+          <label for="name">Full Name</label>
+          <input id="name" required placeholder="Your name" />
+
+          <label for="email">Email</label>
+          <input id="email" type="email" required placeholder="you@example.com" />
+
+          <label for="phone">Phone</label>
+          <input id="phone" placeholder="Optional" />
+
+          <label for="address">Shipping Address</label>
+          <textarea id="address" required placeholder="Street, city, state, ZIP"></textarea>
+
+          <div class="form-row">
+            <div>
+              <label for="delivery">Delivery Method</label>
+              <select id="delivery" onchange="updateCart()">
+                <option value="ship">Ship to me</option>
+                <option value="pickup">Local pickup in Ohio</option>
+              </select>
+            </div>
+            <div>
+              <label for="payment">Payment Method</label>
+              <select id="payment">
+                <option>Credit Card</option>
+                <option>PayPal</option>
+                <option>Venmo</option>
+                <option>Invoice Me</option>
+              </select>
+            </div>
+          </div>
+
+          <label for="notes">Custom Notes</label>
+          <textarea id="notes" placeholder="Engraving, size request, gift note, deadline, etc."></textarea>
+
+          <div class="notice">
+            Demo checkout only. Replace this button with a Stripe Checkout link or backend payment function before taking real orders.
+          </div>
+
+          <button class="btn full" type="submit">Place Order</button>
+          <div class="success" id="successMessage"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 Ohio Chopping Boards | Handmade cutting boards, chopping boards, and charcuterie boards.
+  </footer>
+
+  <script>
+    const products = [
+      {
+        id: 1,
+        name: 'Walnut Chopping Board',
+        description: 'Dark walnut hardwood board for everyday prep and serving.',
+        price: 89,
+        image: 'https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=900&q=80'
+      },
+      {
+        id: 2,
+        name: 'Maple Cutting Board',
+        description: 'Classic light maple cutting board with a smooth food-safe finish.',
+        price: 75,
+        image: 'https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?auto=format&fit=crop&w=900&q=80'
+      },
+      {
+        id: 3,
+        name: 'Cherry Charcuterie Board',
+        description: 'Beautiful serving board for cheese, meats, fruit, and parties.',
+        price: 115,
+        image: 'https://images.unsplash.com/photo-1606787366850-de6330128bfc?auto=format&fit=crop&w=900&q=80'
+      },
+      {
+        id: 4,
+        name: 'Custom Engraved Board',
+        description: 'Personalized with a family name, date, logo, or custom message.',
+        price: 135,
+        image: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=900&q=80'
+      }
+    ];
+
+    let cart = JSON.parse(localStorage.getItem('ohioBoardCart')) || [];
+
+    function money(amount) {
+      return amount.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    }
+
+    function renderProducts() {
+      const productsEl = document.getElementById('products');
+      productsEl.innerHTML = products.map(product => `
+        <div class="card">
+          <img src="${product.image}" alt="${product.name}" />
+          <div class="card-body">
+            <h3>${product.name}</h3>
+            <p>${product.description}</p>
+            <div class="price">${money(product.price)}</div>
+            <button class="btn" onclick="addToCart(${product.id})">Add to Cart</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function addToCart(productId) {
+      const existing = cart.find(item => item.id === productId);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        const product = products.find(item => item.id === productId);
+        cart.push({ ...product, qty: 1 });
+      }
+      saveCart();
+      updateCart();
+      scrollToCheckout();
+    }
+
+    function changeQty(productId, amount) {
+      const item = cart.find(item => item.id === productId);
+      if (!item) return;
+      item.qty += amount;
+      if (item.qty <= 0) {
+        cart = cart.filter(item => item.id !== productId);
+      }
+      saveCart();
+      updateCart();
+    }
+
+    function removeItem(productId) {
+      cart = cart.filter(item => item.id !== productId);
+      saveCart();
+      updateCart();
+    }
+
+    function saveCart() {
+      localStorage.setItem('ohioBoardCart', JSON.stringify(cart));
+    }
+
+    function updateCart() {
+      const cartItems = document.getElementById('cartItems');
+      const cartCount = cart.reduce((sum, item) => sum + item.qty, 0);
+      const subtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+      const delivery = document.getElementById('delivery')?.value || 'ship';
+      const shipping = cartCount === 0 || delivery === 'pickup' ? 0 : 14.95;
+      const tax = subtotal * 0.0725;
+      const total = subtotal + tax + shipping;
+
+      document.getElementById('cartCount').textContent = cartCount;
+      document.getElementById('subtotal').textContent = money(subtotal);
+      document.getElementById('tax').textContent = money(tax);
+      document.getElementById('shipping').textContent = money(shipping);
+      document.getElementById('total').textContent = money(total);
+
+      if (cart.length === 0) {
+        cartItems.innerHTML = '<p>Your cart is empty. Add a board above to start your order.</p>';
+        return;
+      }
+
+      cartItems.innerHTML = cart.map(item => `
+        <div class="cart-item">
+          <div>
+            <strong>${item.name}</strong>
+            <small>${money(item.price)} each</small>
+            <div class="qty-controls">
+              <button onclick="changeQty(${item.id}, -1)">−</button>
+              <span>${item.qty}</span>
+              <button onclick="changeQty(${item.id}, 1)">+</button>
+              <button class="remove" onclick="removeItem(${item.id})">Remove</button>
+            </div>
+          </div>
+          <strong>${money(item.price * item.qty)}</strong>
+        </div>
+      `).join('');
+    }
+
+    function scrollToCheckout() {
+      document.getElementById('checkout').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    document.getElementById('checkoutForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      if (cart.length === 0) {
+        alert('Your cart is empty. Please add a board before checkout.');
+        return;
+      }
+
+      const orderNumber = 'OCB-' + Math.floor(100000 + Math.random() * 900000);
+      const success = document.getElementById('successMessage');
+      success.style.display = 'block';
+      success.innerHTML = `Order ${orderNumber} received. A confirmation would be emailed to the customer. Connect Stripe or Shopify to process payment automatically.`;
+
+      cart = [];
+      saveCart();
+      updateCart();
+      this.reset();
+    });
+
+    renderProducts();
+    updateCart();
+  </script>
+</body>
+</html>
